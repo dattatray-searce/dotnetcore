@@ -4,14 +4,14 @@ pipeline {
         LOCATION = 'us-central1'
         CREDENTIALS_ID = 'poc-searce'
         CLUSTER_NAME_TEST = 'poc-searce'
-        registry = "docsearce/doc-application" 
+        registry = "docsearce/dotnetcore" 
         registryCredential = 'dockerhub' 
     }
     agent any 
     stages { 
         stage('Cloning our Git') { 
             steps { 
-                git branch: 'master', url:'https://github.com/dc-searce/doc-application.git' 
+                git branch: 'master', url:'https://github.com/dattatray-searce/dotnetcore.git' 
             }
         } 
         stage('Building our image') { 
@@ -34,7 +34,7 @@ pipeline {
              
             steps{
                 echo "Deployment started ..."
-                sh "sed -i 's/doc-application:latest/doc-application:${BUILD_NUMBER}/g' deployment.yaml"
+                sh "sed -i 's/dotnetcore:latest/dotnetcore:${BUILD_NUMBER}/g' deployment.yaml"
                 echo "KubernetesEngineBuilder started ... ${PATH}"
                 step([$class: 'KubernetesEngineBuilder', 
                     projectId: env.PROJECT_ID, 
