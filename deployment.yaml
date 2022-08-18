@@ -1,39 +1,39 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dotnetcore-application
+  name: dotnetcore-app
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: dotnetcore-application
+      app: dotnetcore-app
   template:
     metadata:
       labels:
-        app: dotnetcore-application
-        tier: dotnetcore-application
+        app: dotnetcore-app
+        tier: dotnetcore-app
     spec:
      containers:
-     - name: dotnetcore-application
+     - name: dotnetcore-app
        image: docsearce/dotnetcore:latest
        imagePullPolicy: Always
        ports:
           - containerPort: 5000
-            name: dotnetcore-application
+            name: dotnetcore-app
             
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: dotnetcore-service
+  name: dotnetcore-app
   labels:
-    app: dotnetcore-application
+    app: dotnetcore-app
 spec:
   ports:
     - port: 5000
       targetPort: 5000
   selector:
-    app: dotnetcore-application
-    tier: dotnetcore-application
+    app: dotnetcore-app
+    tier: dotnetcore-app
   type: LoadBalancer
