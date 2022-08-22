@@ -1,19 +1,28 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# Use Microsoft's official build .NET image.
+# https://hub.docker.com/_/microsoft-dotnet-core-sdk/
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /app
 
-EXPOSE 443
-EXPOSE 80
-
-# copy project csproj file and restore it in docker directory
-COPY ./*.csproj ./
+# Install production dependencies.
+# Copy csproj and restore as distinct layers.
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copy everything into the docker directory and build
-COPY . .
+# Copy local code to the container image.
+COPY . ./
+WORKDIR /app
+
+# Build a release artifact.
 RUN dotnet publish -c Release -o out
 
-# Build runtime final image
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# Use Microsoft's official runtime .NET image.
+# https://hub.docker.com/_/microsoft-dotnet-core-aspnet/
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine-amd64 AS runtime
 WORKDIR /app
-COPY --from=build /app/out .
+COPY --from=build /app/out ./
+
+# Make sure the app binds to port 8080
+ENV ASPNETCORE_URLS http://*:8080
+
+# Run the web service on container startup.
 ENTRYPOINT ["dotnet", "dotnetcore.dll"]
