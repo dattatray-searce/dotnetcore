@@ -3,7 +3,7 @@ pipeline {
         PROJECT_ID = 'clinic-to-cloud'
         LOCATION = 'us-central1'
         CREDENTIALS_ID = 'poc-searce'
-        CLUSTER_NAME_TEST = 'poc-searce'
+        CLUSTER_NAME = 'poc-searce'
         registry = "docsearce/dotnetcore" 
         registryCredential = 'dockerhub' 
     }
@@ -38,7 +38,7 @@ pipeline {
                 echo "KubernetesEngineBuilder started ... ${PATH}"
                 step([$class: 'KubernetesEngineBuilder', 
                     projectId: env.PROJECT_ID, 
-                    clusterName: env.CLUSTER_NAME_TEST, 
+                    clusterName: env.CLUSTER_NAME, 
                     location: env.LOCATION, 
                     manifestPattern: 'deployment.yaml', 
                     credentialsId: env.CREDENTIALS_ID, 
