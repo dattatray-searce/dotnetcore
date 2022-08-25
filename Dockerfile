@@ -15,7 +15,7 @@ WORKDIR /app
 # Build a release artifact.
 RUN dotnet publish -c Release -o out
 
-# Use Microsoft's official runtime .NET image.
+# Use Microsoft's official runtime .NET image
 # https://hub.docker.com/_/microsoft-dotnet-core-aspnet/
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine-amd64 AS runtime
 WORKDIR /app
