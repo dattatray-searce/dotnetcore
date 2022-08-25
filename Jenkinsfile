@@ -1,7 +1,7 @@
 pipeline { 
     environment { 
         PROJECT_ID = 'clinic-to-cloud'
-        LOCATION = 'us-central1'
+        LOCATION = 'us-central1-a'
         CREDENTIALS_ID = 'poc-searce'
         CLUSTER_NAME = 'poc-searce'
         registry = "docsearce/dotnetcore" 
