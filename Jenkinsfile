@@ -3,7 +3,7 @@ pipeline {
         PROJECT_ID = 'clinic-to-cloud'
         LOCATION = 'us-central1-a'
         CREDENTIALS_ID = 'poc-searce'
-        CLUSTER_NAME = 'poc-searce'
+        CLUSTER_NAME = 'searce-cluster'
         registry = "docsearce/dotnetcore" 
         registryCredential = 'dockerhub' 
     }
